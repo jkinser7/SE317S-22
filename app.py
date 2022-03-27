@@ -1,5 +1,5 @@
 #!flask/bin/python
-from crypt import methods
+#from crypt import methods
 from flask import Flask, jsonify, abort, request, make_response, url_for, send_file
 from flask import render_template, redirect
 import os
@@ -19,13 +19,13 @@ AWS_ACCESS_KEY="AKIAV7X5LSUDT5U7CNNI"
 AWS_SECRET_KEY="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"
 REGION="us-east-1"
 BUCKET_NAME="elasticbeanstalk-us-east-1-411774457095"
-#DB_HOSTNAME="database-1.cd2k4ohtbwvf.us-east-1.rds.amazonaws.com"
+DB_HOSTNAME="database-1.cd2k4ohtbwvf.us-east-1.rds.amazonaws.com"
 DB_USERNAME = 'admin'
-#DB_PASSWORD = 'SE317Group'
-#DB_NAME='photos'
-DB_HOSTNAME="photogallery-db.czivfufzq0kh.us-east-1.rds.amazonaws.com"
-DB_PASSWORD = 'CloudyWithAChance422'
-DB_NAME='photogallery'
+DB_PASSWORD = 'SE317Group'
+DB_NAME='photos'
+#DB_HOSTNAME="photogallery-db.czivfufzq0kh.us-east-1.rds.amazonaws.com"
+#DB_PASSWORD = 'CloudyWithAChance422'
+#DB_NAME='photogallery'
 
 @app.route('/', methods=['GET', 'POST'])
 def home_page():
