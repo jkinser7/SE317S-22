@@ -76,6 +76,40 @@ def add_photo():
         return render_template('form.html')
 
 
+@app.route('/<int:photoID>', methods=['GET'])
+def view_photo(photoID):    
+    conn = MySQLdb.connect (host = DB_HOSTNAME,
+                        user = DB_USERNAME,
+                        passwd = DB_PASSWORD,
+                        db = DB_NAME, 
+            port = 3306)
+    cursor = conn.cursor ()
+
+    cursor.execute("SELECT * FROM photos.photo \
+                    WHERE PhotoID="+str(photoID)+";")
+
+    results = cursor.fetchall()
+
+    items=[]
+    for item in results:
+        photo={}
+        photo['PhotoID'] = item[0]
+        photo['CreationTime'] = item[1]
+        photo['Title'] = item[2]
+        photo['Description'] = item[3]
+        photo['Tags'] = item[4]
+        photo['URL'] = item[5]
+        photo['ExifData']=json.loads(item[6])
+        items.append(photo)
+    conn.close()        
+    tags=items[0]['Tags'].split(',')
+    exifdata=items[0]['ExifData']
+    
+    return render_template('photodetail.html', photo=items[0], 
+                            tags=tags, exifdata=exifdata)
+
+
+
 def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
